@@ -2,6 +2,7 @@ package com.example.testapp
 
 import android.os.Bundle
 import android.widget.*
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -114,9 +115,8 @@ class SharedAccountsActivity : AppCompatActivity() {
 
     private fun showAccountDetails(account: SharedAccount) {
         // Show account details dialog
-        val intent = Intent(this, SharedAccountDetailsActivity::class.java)
-        intent.putExtra("ACCOUNT_ID", account.id)
-        intent.putExtra("USER_ID", currentUserId)
-        startActivity(intent)
+        // TODO: Create SharedAccountDetailsActivity
+        // For now, just show a toast
+        Toast.makeText(this, "Account details: ${account.name}", Toast.LENGTH_SHORT).show()
     }
 }

@@ -2,6 +2,7 @@ package com.example.testapp
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.ForeignKey
 
 @Entity(
     tableName = "shared_account_member_table",
@@ -10,13 +11,13 @@ import androidx.room.PrimaryKey
             entity = SharedAccount::class,
             parentColumns = ["id"],
             childColumns = ["sharedAccountId"],
-            onDelete = ForeignKey.CASCADE
+            onDelete = androidx.room.ForeignKey.CASCADE
         ),
         ForeignKey(
             entity = User::class,
             parentColumns = ["id"],
             childColumns = ["userId"],
-            onDelete = ForeignKey.CASCADE
+            onDelete = androidx.room.ForeignKey.CASCADE
         )
     ]
 )

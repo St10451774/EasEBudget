@@ -75,8 +75,8 @@ class AddTransactionActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             val categories = categoryDao.getAllCategories()
             withContext(Dispatchers.Main) {
-                val categoryNames = categories.map { it.name }
-                val adapter = ArrayAdapter(this@AddTransactionActivity, android.R.layout.simple_spinner_item, categoryNames)
+                val categoryNames = categories.map { category -> category.name }
+                val adapter = ArrayAdapter(this@AddTransactionActivity, android.R.layout.simple_spinner_dropdown_item, categoryNames)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 categorySpinner.adapter = adapter
             }
@@ -120,7 +120,11 @@ class AddTransactionActivity : AppCompatActivity() {
             try {
                 // Get selected category
                 val categories = categoryDao.getAllCategories()
-                val selectedCategory = categories.getOrNull(categorySpinner.selectedItemPosition)
+                val selectedCategory = if (categorySpinner.selectedItemPosition < categories.size) {
+                    categories[categorySpinner.selectedItemPosition]
+                } else {
+                    null
+                }
                 val categoryId = selectedCategory?.id ?: 1
 
                 val newTransaction = Transaction(
@@ -167,10 +171,10 @@ class AddTransactionActivity : AppCompatActivity() {
 
     private suspend fun checkAndAwardMilestones(totalPoints: Int) {
         val milestones = listOf(
-            Pair(100, "First Steps", "Track your first 100 points!"),
-            Pair(500, "Budget Master", "Reach 500 points!"),
-            Pair(1000, "Financial Guru", "Achieve 1000 points!"),
-            Pair(5000, "Expert Tracker", "Become a 5000 point expert!")
+            Triple(100, "First Steps", "Track your first 100 points!"),
+            Triple(500, "Budget Master", "Reach 500 points!"),
+            Triple(1000, "Financial Guru", "Achieve 1000 points!"),
+            Triple(5000, "Expert Tracker", "Become a 5000 point expert!")
         )
 
         milestones.forEach { (points, title, description) ->

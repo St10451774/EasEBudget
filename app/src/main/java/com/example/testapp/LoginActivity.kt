@@ -91,8 +91,8 @@ class LoginActivity : AppCompatActivity() {
             activity = this,
             title = "EasEBudget Login",
             subtitle = "Use your fingerprint or face to login",
-            negativeButtonText = "Cancel"
-        ) {
+            negativeButtonText = "Cancel",
+            onSuccess = {
             // Biometric success - get the user with biometric enabled
             CoroutineScope(Dispatchers.IO).launch {
                 try {
@@ -125,6 +125,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
         }
     }
 }

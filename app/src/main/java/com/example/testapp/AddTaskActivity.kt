@@ -27,7 +27,7 @@ class AddTaskActivity : AppCompatActivity() {
         }
 
         database = DatabaseProvider.getInstance(this)
-        taskDao = database.taskDao()
+        // taskDao = database.TaskDao() // Not needed for budget app
 
         val titleInput = findViewById<EditText>(R.id.taskTitleInput)
         val descriptionInput = findViewById<EditText>(R.id.taskDescriptionInput)

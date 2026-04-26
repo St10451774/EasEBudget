@@ -3,6 +3,7 @@ package com.example.testapp
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AlertDialog
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.*
@@ -280,7 +281,7 @@ class ReportsActivity : AppCompatActivity() {
         
         AlertDialog.Builder(this)
             .setTitle("Export Report")
-            .setItems(options) { _, which ->
+            .setItems(options) { dialog, which ->
                 when (which) {
                     0 -> exportAsCSV()
                     1 -> exportAsPDF()

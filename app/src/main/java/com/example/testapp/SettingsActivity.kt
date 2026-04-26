@@ -139,7 +139,7 @@ class SettingsActivity : AppCompatActivity() {
 
                     // Set user info
                     val usernameTextView = findViewById<TextView>(R.id.usernameTextView)
-                    val emailTextView = findViewById<TextView>(R.id.emailTextView)
+                    val emailTextView = findViewById<TextView>(R.id.emailInput)
                     usernameTextView.text = "Username: ${user.username}"
                     emailTextView.text = "Email: ${user.email}"
                 }
@@ -166,13 +166,14 @@ class SettingsActivity : AppCompatActivity() {
             biometricHelper.authenticate(
                 activity = this,
                 title = "Enable Biometric Login",
-                subtitle = "Confirm your identity to enable biometric login"
-            ) {
+                subtitle = "Confirm your identity to enable biometric login",
+                onSuccess = {
                 // Success - keep switch enabled
                 CoroutineScope(Dispatchers.IO).launch {
                     userDao.updateBiometricSetting(currentUserId, true)
                 }
             }
+        }
         } else {
             CoroutineScope(Dispatchers.IO).launch {
                 userDao.updateBiometricSetting(currentUserId, false)

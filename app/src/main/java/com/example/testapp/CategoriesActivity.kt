@@ -142,12 +142,12 @@ class CategoriesActivity : AppCompatActivity() {
     private fun viewCategorySpending(category: Category) {
         CoroutineScope(Dispatchers.IO).launch {
             val expenses = transactionDao.getUserTransactionsByCategory(currentUserId, category.id)
-            val totalSpent = expenses.filter { it.type == "expense" }.sumOf { it.amount }
+            val totalSpent = expenses.filter { transaction -> transaction.type == "expense" }.sumOf { transaction -> transaction.amount }
             
             withContext(Dispatchers.Main) {
                 val message = "Total spent in ${category.name}: $${String.format("%.2f", totalSpent)}\n" +
                     "Budget limit: $${String.format("%.2f", category.budgetLimit)}\n" +
-                    "Remaining: $${String.format("%.2f", category.budgetLimit - totalSpent)}"
+                    "Remaining: $${String.format("%.2f", category.budgetLimit - totalSpent.toDouble())}"
                 
                 AlertDialog.Builder(this@CategoriesActivity)
                     .setTitle("Category Spending")
