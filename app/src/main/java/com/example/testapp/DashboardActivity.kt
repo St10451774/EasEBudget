@@ -8,6 +8,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.widget.Button
 import android.widget.TextView
 import android.content.Intent
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -52,7 +53,9 @@ class DashboardActivity : AppCompatActivity() {
         setupFab()
         setupBottomNavigation()
         loadDashboardData()
-        initializeDefaultCategories()
+        lifecycleScope.launch {
+            initializeDefaultCategories()
+        }
     }
 
     private fun initializeViews() {

@@ -31,7 +31,10 @@
             android:textSize="12sp"
             android:textColor="@color/success_color"
             android:background="@drawable/points_background"
-            android:padding="4dp 8dp" />
+            android:paddingStart="4dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="8dp" />
 
     </LinearLayout>
 
