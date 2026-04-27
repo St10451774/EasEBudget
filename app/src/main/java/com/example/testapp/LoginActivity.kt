@@ -93,39 +93,42 @@ class LoginActivity : AppCompatActivity() {
             subtitle = "Use your fingerprint or face to login",
             negativeButtonText = "Cancel",
             onSuccess = {
-            // Biometric success - get the user with biometric enabled
-            CoroutineScope(Dispatchers.IO).launch {
-                try {
-                    // For demo purposes, we'll get the first user with biometric enabled
-                    // In a real app, you'd have a more sophisticated way to identify the user
-                    val users = userDao.getAllUsers()
-                    val biometricUser = users.find { it.biometricEnabled }
-                    
-                    withContext(Dispatchers.Main) {
-                        if (biometricUser != null) {
-                            Toast.makeText(this@LoginActivity, "Biometric Login Successful", Toast.LENGTH_SHORT).show()
-                            
-                            if (biometricUser.darkMode) {
-                                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                // Biometric success - get the user with biometric enabled
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        // For demo purposes, we'll get the first user with biometric enabled
+                        // In a real app, you'd have a more sophisticated way to identify the user
+                        val users = userDao.getAllUsers()
+                        val biometricUser = users.find { it.biometricEnabled }
+                        
+                        withContext(Dispatchers.Main) {
+                            if (biometricUser != null) {
+                                Toast.makeText(this@LoginActivity, "Biometric Login Successful", Toast.LENGTH_SHORT).show()
+                                
+                                if (biometricUser.darkMode) {
+                                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                                } else {
+                                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                                }
+                                
+                                val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
+                                intent.putExtra("USER_ID", biometricUser.id)
+                                startActivity(intent)
+                                finish()
                             } else {
-                                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                                Toast.makeText(this@LoginActivity, "No user with biometric login enabled", Toast.LENGTH_SHORT).show()
                             }
-                            
-                            val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
-                            intent.putExtra("USER_ID", biometricUser.id)
-                            startActivity(intent)
-                            finish()
-                        } else {
-                            Toast.makeText(this@LoginActivity, "No user with biometric login enabled", Toast.LENGTH_SHORT).show()
+                        }
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(this@LoginActivity, "Biometric login error: ${e.message}", Toast.LENGTH_SHORT).show()
                         }
                     }
-                } catch (e: Exception) {
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(this@LoginActivity, "Biometric login error: ${e.message}", Toast.LENGTH_SHORT).show()
-                    }
                 }
+            },
+            onFailure = { errorMessage ->
+                Toast.makeText(this@LoginActivity, "Biometric authentication failed: $errorMessage", Toast.LENGTH_SHORT).show()
             }
-        }
-        }
+        )
     }
 }

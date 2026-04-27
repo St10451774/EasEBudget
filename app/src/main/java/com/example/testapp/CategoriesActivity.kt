@@ -141,8 +141,8 @@ class CategoriesActivity : AppCompatActivity() {
 
     private fun viewCategorySpending(category: Category) {
         CoroutineScope(Dispatchers.IO).launch {
-            val expenses = transactionDao.getUserTransactionsByCategory(currentUserId, category.id)
-            val totalSpent = expenses.filter { transaction -> transaction.type == "expense" }.sumOf { transaction -> transaction.amount }
+            transactionDao.getUserTransactionsByCategory(currentUserId, category.id).collect { expenses ->
+                val totalSpent = expenses.filterNotNull().filter { transaction -> transaction.type == "expense" }.sumOf { transaction -> transaction.amount }
             
             withContext(Dispatchers.Main) {
                 val message = "Total spent in ${category.name}: $${String.format("%.2f", totalSpent)}\n" +
@@ -154,6 +154,7 @@ class CategoriesActivity : AppCompatActivity() {
                     .setMessage(message)
                     .setPositiveButton("OK", null)
                     .show()
+            }
             }
         }
     }

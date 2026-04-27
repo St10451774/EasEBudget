@@ -73,12 +73,13 @@ class AddTransactionActivity : AppCompatActivity() {
 
     private fun setupCategoriesSpinner() {
         CoroutineScope(Dispatchers.IO).launch {
-            val categories = categoryDao.getAllCategories()
-            withContext(Dispatchers.Main) {
-                val categoryNames = categories.map { category -> category.name }
-                val adapter = ArrayAdapter(this@AddTransactionActivity, android.R.layout.simple_spinner_dropdown_item, categoryNames)
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                categorySpinner.adapter = adapter
+            categoryDao.getAllCategories().collect { categories ->
+                withContext(Dispatchers.Main) {
+                    val categoryNames = categories.map { category -> category.name }
+                    val adapter = ArrayAdapter(this@AddTransactionActivity, android.R.layout.simple_spinner_dropdown_item, categoryNames)
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    categorySpinner.adapter = adapter
+                }
             }
         }
     }
@@ -119,22 +120,22 @@ class AddTransactionActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 // Get selected category
-                val categories = categoryDao.getAllCategories()
-                val selectedCategory = if (categorySpinner.selectedItemPosition < categories.size) {
-                    categories[categorySpinner.selectedItemPosition]
-                } else {
-                    null
-                }
-                val categoryId = selectedCategory?.id ?: 1
+                categoryDao.getAllCategories().collect { categories ->
+                    val selectedCategory = if (categorySpinner.selectedItemPosition < categories.size) {
+                        categories[categorySpinner.selectedItemPosition]
+                    } else {
+                        null
+                    }
+                    val categoryId = selectedCategory?.id ?: 1L
 
-                val newTransaction = Transaction(
-                    userId = currentUserId,
-                    categoryId = categoryId,
-                    amount = amount,
-                    description = description,
-                    type = transactionType,
-                    receiptPath = receiptImagePath
-                )
+                    val newTransaction = Transaction(
+                        userId = currentUserId,
+                        categoryId = categoryId.toInt(),
+                        amount = amount,
+                        description = description,
+                        type = transactionType,
+                        receiptPath = receiptImagePath
+                    )
 
                 transactionDao.insertTransaction(newTransaction)
                 
@@ -144,6 +145,7 @@ class AddTransactionActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@AddTransactionActivity, "Transaction added successfully", Toast.LENGTH_SHORT).show()
                     finish()
+                }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {

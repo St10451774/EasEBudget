@@ -12,7 +12,8 @@ import androidx.room.RoomDatabase
         SharedAccountMember::class,
         Milestone::class,
         Reward::class,
-        UserPoints::class
+        UserPoints::class,
+        Task::class
     ], 
     version = 1
 )
@@ -22,4 +23,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun categoryDao(): CategoryDao
     abstract fun sharedAccountDao(): SharedAccountDao
     abstract fun gamificationDao(): GamificationDao
+    abstract fun taskDao(): TaskDao
 }

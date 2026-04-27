@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+    
+    <!-- Calculator body background -->
+    <path
+        android:fillColor="#2C3E50"
+        android:pathData="M10,20h100v80h-100z"/>
+    
+    <!-- Calculator screen with EasEbudget text -->
+    <rect
+        android:fillColor="#1E293B"
+        android:fillAlpha="0.9"
+        android:width="80dp"
+        android:height="30dp"
+        android:x="20dp"
+        android:y="35dp"/>
+    
+    <!-- EasEbudget text representation (simplified) -->
+    <group
+        android:translateX="20"
+        android:translateY="45">
+        <!-- Eas -->
+        <path
+            android:fillColor="#00D4FF"
+            android:strokeWidth="1"
+            android:pathData="M2,0h4v8h-4z M8,0h4v8h-4z M14,0h4v8h-4z M20,0h4v8h-4z"/>
+        <!-- Budget -->
+        <path
+            android:fillColor="#00D4FF"
+            android:strokeWidth="1"
+            android:pathData="M28,0h3v8h-3z M33,0h3v8h-3z M38,0h3v8h-3z M43,0h3v8h-3z M48,0h3v8h-3z M53,0h3v8h-3z M58,0h4v8h-4z"/>
+    </group>
+    
+    <!-- Calculator buttons -->
+    <group android:translateY="60">
+        <!-- Row 1 -->
+        <rect android:fillColor="#34495E" android:width="18dp" android:height="12dp" android:x="10dp" android:y="0dp" android:radius="2dp"/>
+        <rect android:fillColor="#34495E" android:width="18dp" android:height="12dp" android:x="31dp" android:y="0dp" android:radius="2dp"/>
+        <rect android:fillColor="#34495E" android:width="18dp" android:height="12dp" android:x="52dp" android:y="0dp" android:radius="2dp"/>
+        <rect android:fillColor="#34495E" android:width="18dp" android:height="12dp" android:x="73dp" android:y="0dp" android:radius="2dp"/>
+        
+        <!-- Row 2 -->
+        <rect android:fillColor="#34495E" android:width="18dp" android:height="12dp" android:x="10dp" android:y="15dp" android:radius="2dp"/>
+        <rect android:fillColor="#34495E" android:width="18dp" android:height="12dp" android:x="31dp" android:y="15dp" android:radius="2dp"/>
+        <rect android:fillColor="#34495E" android:width="18dp" android:height="12dp" android:x="52dp" android:y="15dp" android:radius="2dp"/>
+        <rect android:fillColor="#34495E" android:width="18dp" android:height="12dp" android:x="73dp" android:y="15dp" android:radius="2dp"/>
+        
+        <!-- Row 3 -->
+        <rect android:fillColor="#34495E" android:width="18dp" android:height="12dp" android:x="10dp" android:y="30dp" android:radius="2dp"/>
+        <rect android:fillColor="#34495E" android:width="18dp" android:height="12dp" android:x="31dp" android:y="30dp" android:radius="2dp"/>
+        <rect android:fillColor="#34495E" android:width="18dp" android:height="12dp" android:x="52dp" android:y="30dp" android:radius="2dp"/>
+        <rect android:fillColor="#34495E" android:width="18dp" android:height="12dp" android:x="73dp" android:y="30dp" android:radius="2dp"/>
+    </group>
+    
+    <!-- Orange neon accents/antenna elements -->
+    <path
+        android:fillColor="#FF6B35"
+        android:fillAlpha="0.8"
+        android:pathData="M25,15h2v2h-2z M93,15h2v2h-2z"/>
+    
+    <!-- Glow effect around logo -->
+    <path
+        android:fillColor="#FF6B35"
+        android:fillAlpha="0.3"
+        android:strokeColor="#FF6B35"
+        android:strokeWidth="1"
+        android:strokeAlpha="0.5"
+        android:pathData="M8,15h104v50h-104z"/>
+    
+</vector>

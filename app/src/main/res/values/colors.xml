@@ -9,12 +9,20 @@
     <color name="white">#FFFFFFFF</color>
     
     <!-- EasEBudget Brand Colors -->
+    <color name="primary">#FF6200EE</color>
     <color name="primary_color">#FF6200EE</color>
+    <color name="secondary">#FF03DAC5</color>
     <color name="secondary_color">#FF03DAC5</color>
+    <color name="accent">#FF3700B3</color>
     <color name="accent_color">#FF3700B3</color>
+    <color name="success">#FF4CAF50</color>
     <color name="success_color">#FF4CAF50</color>
+    <color name="error">#FFF44336</color>
     <color name="error_color">#FFF44336</color>
+    <color name="warning">#FFFF9800</color>
     <color name="warning_color">#FFFF9800</color>
     <color name="background_light">#FFF5F5F5</color>
     <color name="background_dark">#FF121212</color>
+    <color name="gray">#FF808080</color>
+    <color name="light_gray">#FFE0E0E0</color>
 </resources>

@@ -168,12 +168,15 @@ class SettingsActivity : AppCompatActivity() {
                 title = "Enable Biometric Login",
                 subtitle = "Confirm your identity to enable biometric login",
                 onSuccess = {
-                // Success - keep switch enabled
-                CoroutineScope(Dispatchers.IO).launch {
-                    userDao.updateBiometricSetting(currentUserId, true)
+                    // Success - keep switch enabled
+                    CoroutineScope(Dispatchers.IO).launch {
+                        userDao.updateBiometricSetting(currentUserId, true)
+                    }
+                },
+                onFailure = { errorMessage ->
+                    Toast.makeText(this@SettingsActivity, "Biometric error: $errorMessage", Toast.LENGTH_SHORT).show()
                 }
-            }
-        }
+            )
         } else {
             CoroutineScope(Dispatchers.IO).launch {
                 userDao.updateBiometricSetting(currentUserId, false)
@@ -222,7 +225,7 @@ class SettingsActivity : AppCompatActivity() {
         
         AlertDialog.Builder(this)
             .setTitle("Export Data")
-            .setItems(options) { _, which ->
+            .setItems(options) { dialog, which ->
                 when (which) {
                     0 -> exportAsCSV()
                     1 -> exportAsPDF()
